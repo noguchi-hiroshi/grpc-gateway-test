@@ -18,6 +18,7 @@ func request(c client.UserClient) {
 	}
 	log.Println(entity)
 }
+
 func newGRPCClient() client.UserClient {
 	conn, err := grpc.Dial(":4949", grpc.WithInsecure())
 	if err != nil {
