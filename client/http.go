@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-const USER_HOST = "http://localhost:5000"
+const UserEndpoint = "http://localhost:5000"
 
 type httpUserClient struct {
 }
@@ -24,7 +24,7 @@ type userBody struct {
 func (h *httpUserClient) Create(email string, password string) (int64, error) {
 	values, err := json.Marshal(userBody{Email: email, Password: password})
 
-	resp, err := http.Post(USER_HOST + "/users", "application/json", bytes.NewBuffer(values))
+	resp, err := http.Post(UserEndpoint + "/users", "application/json", bytes.NewBuffer(values))
 	if err != nil {
 		return 0, err
 	}
@@ -47,7 +47,7 @@ func (h *httpUserClient) Create(email string, password string) (int64, error) {
 }
 
 func (h *httpUserClient) Find(id int64) (*user.Entity, error) {
-	url := fmt.Sprintf("%s/users/%d", USER_HOST, id)
+	url := fmt.Sprintf("%s/users/%d", UserEndpoint, id)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
