@@ -1,0 +1,38 @@
+syntax="proto3";
+
+import "google/api/annotations.proto";
+
+package gateway;
+
+service UserService {
+    rpc Create(CreateRequest) returns (CreateResponse) {
+        option (google.api.http) = {
+            post: "/users"
+            body: "*"
+        };
+    }
+    rpc Find(FindRequest) returns (FindResponse) {
+        option (google.api.http) = {
+            get: "/users/{ID}"
+        };
+    }
+}
+
+message FindRequest {
+    int64 ID = 1;
+}
+
+message FindResponse {
+    int64 ID = 1;
+    string Email = 2;
+    string Password = 3;
+}
+
+message CreateRequest {
+    string Email = 1;
+    string Password = 2;
+}
+
+message CreateResponse {
+    int64  ID = 1;
+}
